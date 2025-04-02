@@ -5,7 +5,7 @@ def procesar_transacciones(archivo_csv):
     total_credito = 0.0
     total_debito = 0.0
     max_monto = 0.0
-    id_max_monto = None
+    id_max_monto = None # id no debe tener valor al inicio
     cont_credito = 0
     cont_debito = 0
 
@@ -14,24 +14,24 @@ def procesar_transacciones(archivo_csv):
         reader = csv.DictReader(file)
         
         for row in reader:
-            monto = float(row['monto'])
+            monto = float(row['monto']) # fila x fila va almacenando el valor de la columna monto en la variable "monto"
             
-            if row['tipo'] == 'Crédito':
+            if row['tipo'] == 'Crédito':    #en la columna "tipo" se va hacer el conteo y la sumatoria  por cada tipo de transaccion credito/debito
                 total_credito += monto
                 cont_credito += 1
             elif row['tipo'] == 'Débito':
                 total_debito += monto
                 cont_debito += 1
             
-            # Verificar transacción con mayor monto
+    # Verificar transacción con mayor monto
             if monto > max_monto:
                 max_monto = monto
                 id_max_monto = row['id']
 
-    # Calcular balance final
+    # Calculo de  balance final
     balance_final = total_credito - total_debito
 
-    # Generar reporte
+    # Generar reporte en  CLI
     print("\nReporte de Transacciones")
     print("---------------------------------------------")
     print(f"Balance Final: {balance_final:.2f}")
